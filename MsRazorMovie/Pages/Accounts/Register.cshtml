@@ -1,0 +1,15 @@
+﻿@page
+@model MsRazorMovie.Pages.Accounts.RegisterModel
+@{
+}
+
+
+<h2>Register</h2>
+<form method="post">
+    <label>Email:</label>
+    <input asp-for="Input.Email" />
+    <label>Password:</label>
+    <input asp-for="Input.Password" type="password" />
+    <button type="submit">Register</button>
+</form>
+
