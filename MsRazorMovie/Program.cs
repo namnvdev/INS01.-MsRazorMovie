@@ -15,6 +15,11 @@ builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
     .AddEntityFrameworkStores<ApplicationDbContext>()
     .AddDefaultTokenProviders();
 
+builder.Services.ConfigureApplicationCookie(options =>
+{
+    options.LoginPath = "/Accounts/Login";
+    options.AccessDeniedPath = "/Accounts/AccessDenied";
+});
 
 builder.Services.AddAuthorization(options =>
 {
@@ -24,6 +29,11 @@ builder.Services.AddAuthorization(options =>
 
 
 var app = builder.Build();
+
+
+// Init data - Role (Admin, User) & Admin users
+var serviceProvider = app.Services.CreateScope().ServiceProvider;
+await IdentitySeedData.InitializeAsync(serviceProvider);
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())

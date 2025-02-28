@@ -61,7 +61,10 @@ namespace MsRazorMovie.Pages.Accounts
                 return Page();
             }
 
-            return RedirectToPage("/Accounts/Index");
+            var result = await _signInManager.PasswordSignInAsync(inputUser, Input.Password, false, false);
+            if (result.Succeeded)
+                return RedirectToPage("/Accounts/Index");
+            return Page();
 
         }
 
